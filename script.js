@@ -1,55 +1,63 @@
-// Esperamos a que la página cargue completamente
 document.addEventListener('DOMContentLoaded', () => {
     
     const boton = document.getElementById('botonSorpresa');
     const mensajeOculto = document.getElementById('mensajeOculto');
+    const card = document.querySelector('.card');
 
-    // Función que se ejecuta al hacer clic en el botón
+    // Efecto 3D en la tarjeta al mover el mouse
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+
+    // Botón sorpresa
     boton.addEventListener('click', () => {
-        // Mostramos el mensaje oculto
         mensajeOculto.style.display = 'block';
-        
-        // Cambiamos el texto del botón
-        boton.textContent = '¡Te Amo! 💙';
+        boton.innerHTML = '<span class="icono-boton">💙</span> ¡Te Amo! 💙';
         boton.style.backgroundColor = '#00bfff';
         boton.style.color = '#000000';
-
-        // Lanzamos el efecto de lluvia azul
         lanzarLluviaAzul();
     });
 
-    // Función para crear la lluvia de elementos azules
+    // Lluvia de corazones y estrellas
     function lanzarLluviaAzul() {
-        const colores = ['#00bfff', '#1e90ff', '#0000ff', '#87ceeb'];
-        const emojis = ['💙', '🎓', '✨', '⭐', '💙', '🎉'];
+        const colores = ['#00bfff', '#1e90ff', '#0000ff', '#87ceeb', '#ffffff'];
+        const emojis = ['💙', '🎓', '✨', '⭐', '💙', '🎉', '💫', '🌟'];
 
-        for (let i = 0; i < 60; i++) {
-            // Creamos un elemento (emoji)
+        for (let i = 0; i < 80; i++) {
             const particula = document.createElement('div');
             particula.textContent = emojis[Math.floor(Math.random() * emojis.length)];
             
-            // Estilos aleatorios para que caigan en diferentes lugares
             particula.style.position = 'fixed';
             particula.style.left = Math.random() * 100 + 'vw';
             particula.style.top = '-50px';
             particula.style.fontSize = (Math.random() * 25 + 15) + 'px';
             particula.style.color = colores[Math.floor(Math.random() * colores.length)];
             particula.style.zIndex = '9999';
-            particula.style.pointerEvents = 'none'; // Para que no bloqueen clics
-            particula.style.transition = 'transform 3.5s linear, opacity 3.5s ease-in';
+            particula.style.pointerEvents = 'none';
+            particula.style.transition = `transform ${3 + Math.random() * 2}s linear, opacity ${3 + Math.random() * 2}s ease-in`;
+            particula.style.textShadow = '0 0 10px rgba(0, 191, 255, 0.8)';
 
             document.body.appendChild(particula);
 
-            // Animación de caída
             setTimeout(() => {
-                particula.style.transform = `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+                particula.style.transform = `translateY(${window.innerHeight + 100}px) rotate(${Math.random() * 720}deg)`;
                 particula.style.opacity = '0';
             }, 50);
 
-            // Eliminamos el elemento después de que termine la animación
             setTimeout(() => {
                 particula.remove();
-            }, 3500);
+            }, 5000);
         }
     }
 });

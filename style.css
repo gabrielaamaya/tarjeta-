@@ -5,18 +5,59 @@
     box-sizing: border-box;
 }
 
-/* Colores y Estilos generales */
 body {
-    background-color: #000000; /* Fondo Negro */
+    background-color: #000000;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 40px 20px;
+    overflow-x: hidden;
+    position: relative;
 }
 
+/* --- FONDO ANIMADO DE ESTRELLAS --- */
+.fondo-estrellas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.estrella {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background-color: #00bfff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
+    animation: flotarEstrella 15s infinite linear;
+}
+
+.estrella:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+.estrella:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 2s; }
+.estrella:nth-child(3) { left: 40%; animation-duration: 15s; animation-delay: 4s; }
+.estrella:nth-child(4) { left: 55%; animation-duration: 20s; animation-delay: 1s; }
+.estrella:nth-child(5) { left: 70%; animation-duration: 14s; animation-delay: 3s; }
+.estrella:nth-child(6) { left: 85%; animation-duration: 17s; animation-delay: 5s; }
+.estrella:nth-child(7) { left: 15%; animation-duration: 22s; animation-delay: 6s; }
+.estrella:nth-child(8) { left: 60%; animation-duration: 13s; animation-delay: 7s; }
+.estrella:nth-child(9) { left: 90%; animation-duration: 19s; animation-delay: 8s; }
+.estrella:nth-child(10) { left: 5%; animation-duration: 16s; animation-delay: 9s; }
+
+@keyframes flotarEstrella {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
 .contenedor-principal {
     max-width: 800px;
     width: 100%;
@@ -24,47 +65,94 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: aparecerSuave 1.5s ease-out;
+}
+
+@keyframes aparecerSuave {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.corona-decorativa {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    animation: brillarCorona 2s infinite alternate;
+}
+
+@keyframes brillarCorona {
+    from { filter: drop-shadow(0 0 5px #00bfff); }
+    to { filter: drop-shadow(0 0 20px #00bfff); }
 }
 
 h1 {
-    color: #00bfff; /* Azul brillante */
+    color: #00bfff;
     font-size: 2.2rem;
     margin-bottom: 30px;
     text-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
     font-weight: 600;
 }
 
-/* --- DISEÑO DE LA TARJETA (CARD) --- */
+.nombre-destacado {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.8rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px #00bfff;
+}
+
+/* --- TARJETA CON BORDE GIRATORIO --- */
 .card {
     position: relative;
-    background: linear-gradient(145deg, #0a0a0a, #111111);
-    border: 2px solid #00bfff;
+    background: #0a0a0a;
     border-radius: 20px;
-    padding: 40px 30px;
+    padding: 3px;
     width: 100%;
     max-width: 600px;
-    box-shadow: 0 0 30px rgba(0, 191, 255, 0.3), inset 0 0 20px rgba(0, 191, 255, 0.1);
     margin-bottom: 40px;
+    box-shadow: 0 0 40px rgba(0, 191, 255, 0.3);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Efecto al pasar el mouse */
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 45px rgba(0, 191, 255, 0.6), inset 0 0 30px rgba(0, 191, 255, 0.2);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 0 60px rgba(0, 191, 255, 0.6);
 }
 
-/* Brillo decorativo en la esquina */
+.card-borde-giratorio {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, #00bfff, transparent 30%);
+    animation: girarBorde 4s linear infinite;
+    z-index: 0;
+}
+
+@keyframes girarBorde {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.card-contenido {
+    position: relative;
+    background: linear-gradient(145deg, #0a0a0a, #111111);
+    border-radius: 18px;
+    padding: 40px 30px;
+    z-index: 1;
+    overflow: hidden;
+}
+
 .card-brillo {
     position: absolute;
     top: -50px;
     right: -50px;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(0, 191, 255, 0.4) 0%, transparent 70%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
+    z-index: 2;
 }
 
 .icono-corazon {
@@ -83,62 +171,109 @@ h1 {
     font-family: 'Dancing Script', cursive;
     color: #00bfff;
     font-size: 2.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: 700;
+}
+
+.linea-decorativa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.linea-decorativa span:not(.punto) {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00bfff, transparent);
+}
+
+.linea-decorativa .punto {
+    width: 8px;
+    height: 8px;
+    background-color: #00bfff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00bfff;
 }
 
 .mensaje-amor {
     font-size: 1.05rem;
     line-height: 1.8;
     color: #dcdcdc;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-weight: 300;
 }
 
 .firma-card {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #00bfff;
-    border-top: 1px solid rgba(0, 191, 255, 0.3);
-    padding-top: 15px;
+    margin-top: 15px;
     display: inline-block;
 }
 
 .firma-card strong {
     font-size: 2rem;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
 }
 
-/* --- BOTÓN Y MENSAJE OCULTO --- */
 button {
     background-color: transparent;
     color: #00bfff;
     border: 2px solid #00bfff;
-    padding: 12px 25px;
+    padding: 14px 30px;
     font-size: 1.1rem;
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+button:hover::before {
+    left: 100%;
 }
 
 button:hover {
     background-color: #00bfff;
     color: #000000;
-    box-shadow: 0 0 25px rgba(0, 191, 255, 0.8);
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.9);
+    transform: scale(1.05);
+}
+
+.icono-boton {
+    font-size: 1.2rem;
 }
 
 .oculto {
     display: none;
     margin-top: 25px;
-    padding: 20px;
+    padding: 25px;
     background-color: rgba(0, 191, 255, 0.1);
-    border-left: 4px solid #00bfff;
-    border-radius: 5px;
+    border: 1px solid rgba(0, 191, 255, 0.3);
+    border-radius: 15px;
     font-size: 1.2rem;
     color: #00bfff;
     animation: aparecer 1s ease-in-out;
     max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
 }
 
 @keyframes aparecer {
@@ -146,12 +281,14 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Ajuste para celulares */
 @media (max-width: 600px) {
     h1 { font-size: 1.6rem; }
-    .card { padding: 25px 20px; }
+    .nombre-destacado { font-size: 2rem; }
+    .card-contenido { padding: 25px 20px; }
     .card h2 { font-size: 2rem; }
     .mensaje-amor { font-size: 0.95rem; }
-    .firma-card { font-size: 1.4rem; }
+    .firma-card { font-size: 1.3rem; }
     .firma-card strong { font-size: 1.7rem; }
+    button { font-size: 1rem; padding: 12px 20px; }
+    .corona-decorativa { font-size: 1.5rem; }
 }
