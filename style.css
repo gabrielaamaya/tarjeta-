@@ -1,0 +1,157 @@
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Colores y Estilos generales */
+body {
+    background-color: #000000; /* Fondo Negro */
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.contenedor-principal {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #00bfff; /* Azul brillante */
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+    font-weight: 600;
+}
+
+/* --- DISEÑO DE LA TARJETA (CARD) --- */
+.card {
+    position: relative;
+    background: linear-gradient(145deg, #0a0a0a, #111111);
+    border: 2px solid #00bfff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0, 191, 255, 0.3), inset 0 0 20px rgba(0, 191, 255, 0.1);
+    margin-bottom: 40px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 45px rgba(0, 191, 255, 0.6), inset 0 0 30px rgba(0, 191, 255, 0.2);
+}
+
+/* Brillo decorativo en la esquina */
+.card-brillo {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.icono-corazon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+    animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.card h2 {
+    font-family: 'Dancing Script', cursive;
+    color: #00bfff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.mensaje-amor {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #dcdcdc;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.firma-card {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #00bfff;
+    border-top: 1px solid rgba(0, 191, 255, 0.3);
+    padding-top: 15px;
+    display: inline-block;
+}
+
+.firma-card strong {
+    font-size: 2rem;
+}
+
+/* --- BOTÓN Y MENSAJE OCULTO --- */
+button {
+    background-color: transparent;
+    color: #00bfff;
+    border: 2px solid #00bfff;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    background-color: #00bfff;
+    color: #000000;
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.8);
+}
+
+.oculto {
+    display: none;
+    margin-top: 25px;
+    padding: 20px;
+    background-color: rgba(0, 191, 255, 0.1);
+    border-left: 4px solid #00bfff;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #00bfff;
+    animation: aparecer 1s ease-in-out;
+    max-width: 600px;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajuste para celulares */
+@media (max-width: 600px) {
+    h1 { font-size: 1.6rem; }
+    .card { padding: 25px 20px; }
+    .card h2 { font-size: 2rem; }
+    .mensaje-amor { font-size: 0.95rem; }
+    .firma-card { font-size: 1.4rem; }
+    .firma-card strong { font-size: 1.7rem; }
+}
